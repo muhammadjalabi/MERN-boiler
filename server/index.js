@@ -3,7 +3,7 @@ const express = require('express');
 const app = express();
 
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser') //this will allow you to use commands like req.BODY<---
 const cookieParser = require('cookie-parser')
 
 /*
@@ -44,8 +44,46 @@ app.post('/api/users/register', (req, res) => {
     if (error) {
       return res.json({ success: false, error })
     }
+    res.status(200)
+      .json({
+        success: true,
+        userData
+      })
   })
   return res.status(200)
+})
+
+app.post('/api/user/login', (req, res) => {
+  //find email
+  User.findOne({ email: req.body.email }, (error, user) => {
+    if (!user) {
+      return res.json({
+        loginSuccess: false,
+        message: 'Authentication failed email is not registered'
+      })
+    }
+    //compare password in db
+    user.comparePassword(req.body.password, (error, isMatch) => {
+      if (!isMatch) {
+        return res.json({
+          loginSuccess: false,
+          message: 'Wrong password!'
+        })
+      }
+    })
+  })
+
+  //Generate token
+  user.generateToken((error, userData) => {
+    if (error) {
+      return res.status(400).send(error)
+    }
+    res.cookie('xyz_auth', user.token)
+      .status(200)
+      .json({
+        loginSuccess: true,
+      })
+  })
 })
 
 app.listen(config.SERVER_PORT)
