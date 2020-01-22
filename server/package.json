@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Boiler plate for MERN stack",
   "main": "index.js",
+  "engine": {
+    "node": "12.13.1",
+    "npm": "6.12.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon index.js"
@@ -19,14 +23,22 @@
   "homepage": "https://github.com/muhammadjalabi/MERN-boiler#readme",
   "dependencies": {
     "bcrypt": "^3.0.7",
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.8.9"
+    "mongoose": "^5.8.9",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "path": "^0.12.7",
+    "validator": "^12.1.0"
   },
   "devDependencies": {
+    "cors": "^2.8.5",
+    "http-proxy-middleware": "^0.20.0",
     "nodemon": "^2.0.2"
   }
 }
